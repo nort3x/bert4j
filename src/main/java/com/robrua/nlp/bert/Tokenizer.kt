@@ -1,11 +1,4 @@
-package com.robrua.nlp.bert;
-
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Stream;
-
-import com.google.common.collect.Lists;
+package com.robrua.nlp.bert
 
 /**
  * A tokenizer that converts text sequences into tokens or sub-tokens for BERT to use
@@ -14,62 +7,68 @@ import com.google.common.collect.Lists;
  * @version 1.0.3
  * @since 1.0.3
  */
-public abstract class Tokenizer {
+abstract class Tokenizer {
     /**
-     * Splits a sequence into tokens based on whitespace
+     * Tokenizes a multiple sequences
      *
-     * @param sequence
-     *        the sequence to split
-     * @return a stream of the tokens from the stream that were separated by whitespace
+     * @param sequences
+     * the sequences to tokenize
+     * @return the tokens in the sequences, in the order the [java.lang.Iterable] provided them
      * @since 1.0.3
      */
-    protected static Stream<String> whitespaceTokenize(final String sequence) {
-        return Arrays.stream(sequence.trim().split("\\s+"));
+    fun tokenize(sequences: Iterable<String>): Array<Array<String>> {
+        val list: List<String> = sequences.toList()
+        return tokenize(*list.toTypedArray())
     }
 
     /**
      * Tokenizes a multiple sequences
      *
      * @param sequences
-     *        the sequences to tokenize
-     * @return the tokens in the sequences, in the order the {@link java.lang.Iterable} provided them
+     * the sequences to tokenize
+     * @return the tokens in the sequences, in the order the [java.util.Iterator] provided them
      * @since 1.0.3
      */
-    public String[][] tokenize(final Iterable<String> sequences) {
-        final List<String> list = Lists.newArrayList(sequences);
-        return tokenize(list.toArray(new String[list.size()]));
-    }
-
-    /**
-     * Tokenizes a multiple sequences
-     *
-     * @param sequences
-     *        the sequences to tokenize
-     * @return the tokens in the sequences, in the order the {@link java.util.Iterator} provided them
-     * @since 1.0.3
-     */
-    public String[][] tokenize(final Iterator<String> sequences) {
-        final List<String> list = Lists.newArrayList(sequences);
-        return tokenize(list.toArray(new String[list.size()]));
+    fun tokenize(sequences: Iterator<String>): Array<Array<String>> {
+        val list: List<String> = sequences.asSequence().toList()
+        return tokenize(*list.toTypedArray())
     }
 
     /**
      * Tokenizes a single sequence
      *
      * @param sequence
-     *        the sequence to tokenize
+     * the sequence to tokenize
      * @return the tokens in the sequence
      * @since 1.0.3
      */
-    public abstract String[] tokenize(String sequence);
+    abstract fun tokenize(sequence: String): Array<String>
 
     /**
      * Tokenizes a multiple sequences
      *
      * @param sequences
-     *        the sequences to tokenize
+     * the sequences to tokenize
      * @return the tokens in the sequences, in the order they were provided
      * @since 1.0.3
      */
-    public abstract String[][] tokenize(String... sequences);
+    abstract fun tokenize(vararg sequences: String): Array<Array<String>>
+
+    companion object {
+        /**
+         * Splits a sequence into tokens based on whitespace
+         *
+         * @param sequence
+         * the sequence to split
+         * @return a stream of the tokens from the stream that were separated by whitespace
+         * @since 1.0.3
+         */
+        @JvmStatic
+        protected fun whitespaceTokenize(sequence: String): Sequence<String> {
+            return sequence
+                .trim { it <= ' ' }
+                .split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }
+                .asSequence()
+        }
+    }
 }
