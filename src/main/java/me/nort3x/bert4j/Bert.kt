@@ -1,4 +1,4 @@
-package com.robrua.nlp.bert
+package me.nort3x.bert4j
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.tensorflow.SavedModelBundle

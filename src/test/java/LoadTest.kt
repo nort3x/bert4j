@@ -1,4 +1,4 @@
-import com.robrua.nlp.bert.Bert
+import me.nort3x.bert4j.Bert
 import org.junit.jupiter.api.Test
 import kotlin.test.assertTrue
 

@@ -1,4 +1,4 @@
-package com.robrua.nlp.bert
+package me.nort3x.bert4j
 
 import java.text.Normalizer
 import java.util.*
@@ -40,7 +40,7 @@ class BasicTokenizer
             .map { sequence: String -> whitespaceTokenize(sequence).toList().toTypedArray() }
             .map { tokens: Array<String> ->
                 tokens.asSequence().map { token: String -> stripAndSplit(token) }
-                    .flatMap { sequence: String -> Tokenizer.Companion.whitespaceTokenize(sequence) }
+                    .flatMap { sequence: String -> whitespaceTokenize(sequence) }
                     .toList().toTypedArray()
             }.toTypedArray()
     }

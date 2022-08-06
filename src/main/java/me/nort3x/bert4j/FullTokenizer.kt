@@ -1,4 +1,4 @@
-package com.robrua.nlp.bert
+package me.nort3x.bert4j
 
 import java.io.File
 import java.io.IOException

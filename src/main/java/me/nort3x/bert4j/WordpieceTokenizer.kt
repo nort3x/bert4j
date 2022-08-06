@@ -1,4 +1,4 @@
-package com.robrua.nlp.bert
+package me.nort3x.bert4j
 
 /**
  * A port of the BERT WordpieceTokenizer in the [BERT GitHub Repository](https://github.com/google-research/bert).

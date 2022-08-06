@@ -1,4 +1,4 @@
-package com.robrua.nlp.bert
+package me.nort3x.bert4j
 
 /**
  * A tokenizer that converts text sequences into tokens or sub-tokens for BERT to use

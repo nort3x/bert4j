@@ -2,12 +2,16 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.6.21"
+    `maven-publish`
 }
+val groupVar = "me.nort3x"
+val versionVar = "0.0.1-SNAPSHOT"
 
-group = "me.nort3x"
-version = "0.0.1-SNAPSHOT"
+group = groupVar
+version = versionVar
 java.sourceCompatibility = JavaVersion.VERSION_17
-description = "A Dead Simple BERT API (https://github.com/google-research/bert) refactored and bumped - forked from: https://github.com/robrua/easy-bert"
+description =
+    "A Dead Simple BERT API (https://github.com/google-research/bert) refactored and bumped - forked from: https://github.com/robrua/easy-bert"
 
 repositories {
     mavenCentral()
@@ -26,4 +30,15 @@ tasks.test {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = groupVar
+            artifactId = "bert4j"
+            version = versionVar
+
+            from(components["java"])
+        }
+    }
 }
